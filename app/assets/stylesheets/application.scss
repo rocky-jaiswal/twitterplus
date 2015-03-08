@@ -1,0 +1,33 @@
+$base: #E4F6F3;
+$header: #2c3e50;
+$bright_blue: #389AFF;
+$bright_blue2: #2D7BCC;
+$dark_blue: #1C4D7F;
+$dark_blue2: #204F7F;
+
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import "font-awesome-sprockets";
+@import "font-awesome";
+@import "buttons";
+@import url('http://fonts.googleapis.com/css?family=Roboto:300');
+
+body {
+    font-family: 'Roboto', sans-serif !important;
+    background-color: $base;
+    margin: 0px 0px 20px 0px;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 10px 0px;
+  color: $base;
+  background-color: $dark_blue2;
+  .text-center{
+      text-align: center;
+  }
+}
+
+@import 'pages';

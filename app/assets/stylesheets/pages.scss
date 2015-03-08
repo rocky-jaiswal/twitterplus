@@ -1,0 +1,23 @@
+.header {
+  background-color: $header;
+  a {
+    color: white;
+  }
+  h3 {
+    padding: 10px 0px;
+    color: white;
+  }
+}
+
+.divider {
+  height: 300px;
+  border-left: 1px dashed black;
+}
+
+.field {
+  margin-bottom: 15px;
+}
+
+.actions {
+  margin-top: 5px;
+}

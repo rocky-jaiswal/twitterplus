@@ -1,0 +1,30 @@
+<% content_for :header do %>
+<div class="header">
+  <nav class="navbar">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/#">Twitter+</a>
+    </div>
+  </nav>
+</div>
+<% end %>
+
+<div class="row">
+  <div class="col-lg-4">
+    <%= render "devise/registrations/sign_up" %>
+  </div>
+  <div class="col-lg-2">
+    <div class="divider">
+    </div>
+  </div>
+  <div class="col-lg-6">
+    <%= render "devise/sessions/sign_in" %>
+  </div>
+</div>
+
+<% content_for :footer do %>
+<footer class="footer">
+  <div class="footer-copyright text-center"><i class="fa fa-heart"></i> | <i class="fa fa-coffee"></i> |  RockyJ</div>
+</footer>
+<% end %>
+
+<!-- link_to "Sign in with Twitter", omniauth_authorize_path('user', 'twitter') -->

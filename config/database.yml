@@ -1,0 +1,15 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  # http://guides.rubyonrails.org/configuring.html#database-pooling
+  pool: 5
+  username: postgresdev
+  password: postgresdev
+
+development:
+  <<: *default
+  database: twitterplus_dev
+
+test:
+  <<: *default
+  database: twitterplus_test
