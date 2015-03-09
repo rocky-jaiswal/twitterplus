@@ -23,20 +23,14 @@ require.config
     marionette: "/libs/bower_components/marionette/lib/backbone.marionette"
     nunjucks: "/libs/nunjucks"
 
-require ["backbone", "marionette", "jquery", "nunjucks"], (Backbone, Marionette, $, nunjucks) ->
+require ["marionette", "jquery", "application_router"], (Marionette, $, ApplicationRouter) ->
   startApp = ->
     app = new Marionette.Application()
-    app.addRegions({mainRegion: '#app-main'})
-
-    nunjucks.configure({ autoescape: true })
-    homeTemplate = nunjucks.renderString('<h2>Hello {{ username }}</h2>', { username: 'World!' })
-
-    app.HomeView = Marionette.ItemView.extend({template: -> homeTemplate})
-    homeView = new app.HomeView()
 
     app.on 'start', ->
+      router = new ApplicationRouter()
       Backbone.history.start()
-      app.mainRegion.show(homeView.render())
+      router.navigate("/", {trigger: true})
 
     app.start()
 
