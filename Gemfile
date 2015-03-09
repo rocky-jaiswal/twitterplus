@@ -15,6 +15,7 @@ gem 'compass-rails'
 gem 'devise'
 gem 'omniauth-twitter'
 gem 'figaro'
+gem 'twitter'
 
 group :development do
   gem 'thin'
