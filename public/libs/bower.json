@@ -2,7 +2,8 @@
   "name": "twitter+",
   "version": "0.0.0",
   "dependencies": {
-    "marionette": "2.4.1"
+    "marionette": "2.4.1",
+    "requirejs-text": "2.0.14"
   },
   "devDependencies": {}
 }

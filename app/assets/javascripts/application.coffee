@@ -21,6 +21,7 @@ require.config
     underscore: "/libs/bower_components/underscore/underscore"
     backbone: "/libs/bower_components/backbone/backbone"
     marionette: "/libs/bower_components/marionette/lib/backbone.marionette"
+    text: "/libs/bower_components/requirejs-text/text"
     nunjucks: "/libs/nunjucks"
 
 require ["marionette", "jquery", "application_router"], (Marionette, $, ApplicationRouter) ->
