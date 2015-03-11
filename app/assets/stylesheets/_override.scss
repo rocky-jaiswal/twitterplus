@@ -1,0 +1,7 @@
+.nav > li > a:hover, .nav > li > a:focus {
+  background-color: $header;
+}
+
+.nav li a.active {
+  background-color: tint($header, 5%);
+}
