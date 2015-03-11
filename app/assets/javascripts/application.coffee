@@ -31,12 +31,14 @@ require.config
     '*':
       'backbone.wreqr': 'backbone.radio'
 
-require ["marionette", "jquery", "radio.shim", "application_router"], (Marionette, $, Shim, ApplicationRouter) ->
+require ["marionette", "jquery", "radio.shim", "application_router", "views/layout"], (Marionette, $, Shim, ApplicationRouter, LayoutView) ->
   startApp = ->
     app = new Marionette.Application()
 
     app.on 'start', ->
-      router = new ApplicationRouter()
+      layoutView = new LayoutView()
+      layoutView.render()
+      router = new ApplicationRouter(layoutView: layoutView)
       Backbone.history.start()
       router.navigate("/", {trigger: true})
 

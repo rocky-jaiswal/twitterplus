@@ -2,6 +2,10 @@
   background-color: $header;
 }
 
-.nav li a.active {
+.nav > li > a:hover {
   background-color: tint($header, 5%);
+}
+
+.nav li a.active {
+  background-color: tint($header, 15%);
 }

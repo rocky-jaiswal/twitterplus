@@ -1,18 +1,12 @@
-define ["backbone", "marionette", "nunjucks", "text!templates/layout.html"], (Backbone, Marionette, nunjucks, layoutTemplate) ->
+define ["backbone", "marionette", "nunjucks", "text!templates/home.html"], (Backbone, Marionette, nunjucks, homeTemplate) ->
   'use strict'
 
-  class HomeView extends Backbone.Marionette.LayoutView
-
-    el: '#app-layout'
+  class HomeView extends Backbone.Marionette.ItemView
 
     name: 'homeView'
-
-    regions:
-      header: "#app-header"
-      main:   "#app-main"
 
     initialize:->
       nunjucks.configure({ autoescape: true })
 
     template:=>
-      nunjucks.renderString(layoutTemplate)
+      nunjucks.renderString(homeTemplate)

@@ -5,7 +5,7 @@ class OmniauthCallbackController < Devise::OmniauthCallbacksController
   def twitter
     if user_signed_in?
       current_user.enrich_oauth_info(env["omniauth.auth"])
-      redirect_to '/pages/home'
+      redirect_to home_path
     else
       redirect_to root_path
     end
