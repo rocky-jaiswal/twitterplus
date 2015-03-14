@@ -31,7 +31,7 @@ require.config
     '*':
       'backbone.wreqr': 'backbone.radio'
 
-require ["marionette", "jquery", "radio.shim", "application_router", "views/layout"], (Marionette, $, Shim, ApplicationRouter, LayoutView) ->
+require ["marionette", "jquery", "radio.shim", "router/application_router", "views/layout"], (Marionette, $, Shim, ApplicationRouter, LayoutView) ->
   startApp = ->
     app = new Marionette.Application()
 

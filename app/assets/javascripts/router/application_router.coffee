@@ -1,21 +1,22 @@
-define ["backbone", "marionette", "backbone.radio", "views/home", "views/groups", "views/settings", "views/header"], (Backbone, Marionette, Radio, HomeView, GroupsView, SettingsView, HeaderView) ->
+define ["backbone", "marionette", "backbone.radio", "views/home", "views/friends", "views/settings", "views/header", "collections/friends"], (Backbone, Marionette, Radio, HomeView, FriendsView, SettingsView, HeaderView, Friends) ->
   'use strict'
 
   class ApplicationRouter extends Backbone.Marionette.AppRouter
 
     routes:
       "": "main"
-      "groups": "groups"
+      "friends": "friends"
       "settings": "settings"
 
     main:->
       homeView = new HomeView()
       @display(homeView)
-      
 
-    groups:->
-      groupsView = new GroupsView()
-      @display(groupsView)
+    friends:->
+      friends = new Friends()
+      friends.fetch({reset: true})
+      friendsView = new FriendsView(collection: friends)
+      @display(friendsView)
 
     settings:->
       settingsView = new SettingsView()
@@ -26,4 +27,3 @@ define ["backbone", "marionette", "backbone.radio", "views/home", "views/groups"
       @options.layoutView.getRegion('header').show(new HeaderView())
       channel = Radio.channel('navigation')
       channel.trigger "navigation:#{view.name}"
-      

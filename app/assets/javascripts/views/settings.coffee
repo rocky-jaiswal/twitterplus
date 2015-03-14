@@ -1,7 +1,7 @@
 define ["backbone", "marionette", "nunjucks", "text!templates/settings.html"], (Backbone, Marionette, nunjucks, settingsTemplate) ->
   'use strict'
 
-  class SettingsView extends Backbone.Marionette.LayoutView
+  class SettingsView extends Backbone.Marionette.ItemView
 
     name: 'settingsView'
 
