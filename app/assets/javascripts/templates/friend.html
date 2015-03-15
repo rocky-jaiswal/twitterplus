@@ -1,3 +1,11 @@
-<div class="friend">
-  <p>{{ screen_name }}</p>
+<div class="friend col-md-12">
+  <p class="highlight">{{ screen_name }}</p>
+  <p>{{ name }}</p>
+  <div class="details">
+    <a href="{{ url }}">{{ url }}</a>
+    <p>Description: {{ description }}</p>
+    <p>Followers: {{ followers_count }}</p>
+    <p>Following: {{ friends_count }}</p>
+    <p>Following Me? {{ following }}</p>
+  </div>
 </div>

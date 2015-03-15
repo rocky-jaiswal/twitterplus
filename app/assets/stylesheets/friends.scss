@@ -1,3 +1,15 @@
-// Place all the styles related to the friends controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+.friend {
+  border: 1px solid $mygray;
+  padding: 15px;
+  background: honeydew;
+  p.highlight {
+    background-color: $bright_blue;
+    color: $cloudy;
+    padding-left: 4px;
+  }
+  height: 125px;
+  margin-bottom: 5px;
+  .details {
+    display: none;
+  }
+}

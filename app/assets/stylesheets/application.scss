@@ -3,6 +3,8 @@ $header: #2c3e50;
 $bright_blue: #2D7BCC;
 $dark_blue: #1C4D7F;
 $dark_blue2: #204F7F;
+$cloudy: #ecf0f1;
+$mygray: #ccc;
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
@@ -30,4 +32,5 @@ body {
 }
 
 @import 'pages';
+@import 'friends';
 @import '_override';
