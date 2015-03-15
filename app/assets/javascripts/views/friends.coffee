@@ -1,13 +1,13 @@
 define ["backbone", "marionette", "nunjucks", "views/friend", "text!templates/friends.html"], (Backbone, Marionette, nunjucks, FriendView, friendsTemplate) ->
   'use strict'
 
-  class FriendsView extends Backbone.Marionette.CollectionView
+  class FriendsView extends Backbone.Marionette.CompositeView
 
     name: 'friendsView'
 
-    tagName: 'div'
-
     childView: FriendView
+
+    childViewContainer: '.friends'
 
     initialize:->
       nunjucks.configure({ autoescape: true })
