@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
          :confirmable, :lockable, :timeoutable,
          :omniauthable, :omniauth_providers => [:twitter]
 
+  has_many :friends, dependent: :destroy
+
   def enrich_oauth_info(auth)
     self.provider      = auth["provider"]
     self.uid           = auth["uid"]
@@ -12,7 +14,7 @@ class User < ActiveRecord::Base
   end
 
   def twitter_client
-    @__twitter_client = Twitter::REST::Client.new do |config|
+    @__twitter_client ||= Twitter::REST::Client.new do |config|
       config.consumer_key        = ENV['twitter_key']
       config.consumer_secret     = ENV['twitter_secret']
       config.access_token        = self.oauth_details['oauth_token']
@@ -20,12 +22,28 @@ class User < ActiveRecord::Base
     end
   end
 
+  def twitter_user
+    @__twitter_user ||= twitter_client.user(self.oauth_details["user_id"].to_i)
+  end
+
   def refresh_friends
-    twitter_client.friends.each do |friend|
-      self.friends.create!(friend.slice(:id, :name, :screen_name,
-                                        :url, :description, :followers_count,
-                                        :friends_count, :profile_image_url, :following))
+    friends = twitter_client.friends({count: 200})
+    friends.each do |friend|
+      self.friends.create!(name: friend.name,
+                           screen_name: friend.screen_name,
+                           url: friend.uri.to_s,
+                           website: friend.website.to_s,
+                           profile_image_url: friend.profile_image_url.to_s,
+                           description: friend.description,
+                           followers_count: friend.followers_count,
+                           friends_count: friend.friends_count,
+                           following: friend.following?)
     end
+  rescue => e
+    #TODO Handle the rate limit exception
+    puts e.class
+    puts e.message
+    puts e.inspect
   end
 
 end
