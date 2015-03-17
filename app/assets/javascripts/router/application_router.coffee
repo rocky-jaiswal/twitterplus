@@ -1,22 +1,20 @@
-define ["backbone", "marionette", "backbone.radio", "views/home", "views/friends", "views/settings", "views/header", "collections/friends"], (Backbone, Marionette, Radio, HomeView, FriendsView, SettingsView, HeaderView, Friends) ->
+define ["backbone", "marionette", "backbone.radio", "views/home", "views/organize", "views/settings", "views/header"], (Backbone, Marionette, Radio, HomeView, OrganizeView, SettingsView, HeaderView) ->
   'use strict'
 
   class ApplicationRouter extends Backbone.Marionette.AppRouter
 
     routes:
       "": "main"
-      "friends": "friends"
+      "organize": "organize"
       "settings": "settings"
 
     main:->
       homeView = new HomeView()
       @display(homeView)
 
-    friends:->
-      friends = new Friends()
-      friends.fetch({reset: true})
-      friendsView = new FriendsView(collection: friends)
-      @display(friendsView)
+    organize:->
+      organizeView = new OrganizeView()
+      @display(organizeView)
 
     settings:->
       settingsView = new SettingsView()

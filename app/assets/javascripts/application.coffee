@@ -38,6 +38,7 @@ require ["marionette", "jquery", "radio.shim", "router/application_router", "vie
     app.on 'start', ->
       layoutView = new LayoutView()
       layoutView.render()
+
       router = new ApplicationRouter(layoutView: layoutView)
       Backbone.history.start()
       router.navigate("/", {trigger: true})

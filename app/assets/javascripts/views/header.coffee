@@ -6,7 +6,7 @@ define ["backbone", "marionette", "nunjucks", "backbone.radio", "text!templates/
     initialize:->
       @channel = Radio.channel('navigation')
       @channel.on 'navigation:homeView', @highlightMain
-      @channel.on 'navigation:friendsView', @highlightGroups
+      @channel.on 'navigation:organizeView', @highlightOrganize
       @channel.on 'navigation:settingsView', @highlightSettings
       nunjucks.configure({ autoescape: true })
 
@@ -16,8 +16,8 @@ define ["backbone", "marionette", "nunjucks", "backbone.radio", "text!templates/
     highlightMain:=>
       $('#nav-home').addClass('active')
 
-    highlightGroups:=>
-      $('#nav-friends').addClass('active')
+    highlightOrganize:=>
+      $('#nav-organize').addClass('active')
 
     highlightSettings:=>
       $('#nav-settings').addClass('active')

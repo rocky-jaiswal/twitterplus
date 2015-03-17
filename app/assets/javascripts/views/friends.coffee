@@ -3,8 +3,6 @@ define ["backbone", "marionette", "nunjucks", "views/friend", "text!templates/fr
 
   class FriendsView extends Backbone.Marionette.CompositeView
 
-    name: 'friendsView'
-
     childView: FriendView
 
     childViewContainer: '.friends'

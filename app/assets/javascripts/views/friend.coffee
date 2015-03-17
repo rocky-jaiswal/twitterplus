@@ -16,9 +16,9 @@ define ["backbone", "marionette", "nunjucks", "text!templates/friend.html"], (Ba
       nunjucks.renderString(friendTemplate, @model.attributes)
 
     showDetails:->
-      @$el.find('.friend').height(350)
+      @$el.find('.friend').height(318)
       @$el.find('.details').show()
 
     hideDetails:->
       @$el.find('.details').hide()
-      @$el.find('.friend').height(125)
+      @$el.find('.friend').height(48)
