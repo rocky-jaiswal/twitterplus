@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
          :omniauthable, :omniauth_providers => [:twitter]
 
   has_many :friends, dependent: :destroy
+  has_many :groups,  dependent: :destroy
 
   def enrich_oauth_info(auth)
     self.provider      = auth["provider"]

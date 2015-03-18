@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get 'pages/app', as: 'home'
 
   resources :friends, only: [:index]
+  resources :groups
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
