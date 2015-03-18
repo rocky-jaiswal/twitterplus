@@ -1,4 +1,4 @@
-define ["backbone", "marionette", "nunjucks", "views/groups", "views/friends", "collections/friends", "text!templates/organize.html"], (Backbone, Marionette, nunjucks, GroupsView, FriendsView, Friends, organizeTemplate) ->
+define ["backbone", "marionette", "nunjucks", "views/groups", "views/friends", "collections/friends", "collections/groups", "text!templates/organize.html"], (Backbone, Marionette, nunjucks, GroupsView, FriendsView, Friends, Groups, organizeTemplate) ->
   'use strict'
 
   class OrganizeView extends Backbone.Marionette.LayoutView
@@ -18,6 +18,8 @@ define ["backbone", "marionette", "nunjucks", "views/groups", "views/friends", "
     onBeforeShow:=>
       friends = new Friends()
       friends.fetch({reset: true})
-      friendsView = new FriendsView(collection: friends)
-      @getRegion('friends').show(friendsView)
-      @getRegion('groups').show(new GroupsView())
+      @getRegion('friends').show(new FriendsView(collection: friends))
+
+      groups = new Groups()
+      groups.fetch({reset: true})
+      @getRegion('groups').show(new GroupsView(collection: groups))

@@ -1,7 +1,11 @@
-define ["backbone", "marionette", "nunjucks", "text!templates/groups.html"], (Backbone, Marionette, nunjucks, groupsTemplate) ->
+define ["backbone", "marionette", "nunjucks", "views/group","text!templates/groups.html"], (Backbone, Marionette, nunjucks, GroupView, groupsTemplate) ->
   'use strict'
 
-  class GroupsView extends Backbone.Marionette.ItemView
+  class GroupsView extends Backbone.Marionette.CompositeView
+
+    childView: GroupView
+
+    childViewContainer: '.groups'
 
     initialize:->
       nunjucks.configure({ autoescape: true })
