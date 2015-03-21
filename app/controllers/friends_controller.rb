@@ -5,7 +5,7 @@ class FriendsController < ApplicationController
   end
 
   def update_all
-    current_user.refresh_friends
+    current_user.refresh_friends!
     render json: {success: true}
   end
 

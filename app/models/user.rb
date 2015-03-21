@@ -27,12 +27,13 @@ class User < ActiveRecord::Base
     @__twitter_user ||= twitter_client.user(self.oauth_details["user_id"].to_i)
   end
 
-  def refresh_friends
+  def refresh_friends!
     self.friends.delete_all
     tw_friends = twitter_client.friends({count: 200})
     tw_friends.each do |friend|
       self.friends.create!(name: friend.name,
                            screen_name: friend.screen_name,
+                           twitter_id: friend.id,
                            url: friend.uri.to_s,
                            website: friend.website.to_s,
                            profile_image_url: friend.profile_image_url.to_s,
