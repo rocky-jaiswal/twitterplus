@@ -5,6 +5,7 @@ $dark_blue: #1C4D7F;
 $dark_blue2: #204F7F;
 $light_blue: #C5EFF7;
 $cloudy: #ecf0f1;
+$dark_cloudy: #D2D7D3;
 $mygray: #ccc;
 $dark_head: #757D75;
 $flat_green: #8DB255;
@@ -22,6 +23,10 @@ body {
     margin: 0px 0px 20px 0px;
 }
 
+input {
+  margin-bottom: 4px;
+}
+
 .footer {
   position: absolute;
   bottom: 0;
@@ -32,10 +37,6 @@ body {
   .text-center{
       text-align: center;
   }
-}
-
-input {
-  margin-bottom: 4px;
 }
 
 @import 'pages';

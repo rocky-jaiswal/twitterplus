@@ -2,13 +2,13 @@
   border: 1px solid $mygray;
   padding: 15px;
   background: $cloudy;
+  height: 125px;
+  margin-bottom: 5px;
   p.highlight {
     background-color: $dark_head;
-    color: $cloudy;
+    color: $dark_cloudy;
     padding-left: 4px;
   }
-  height: 80px;
-  margin-bottom: 5px;
   .details {
     display: none;
   }

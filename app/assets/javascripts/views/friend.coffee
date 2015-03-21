@@ -21,4 +21,4 @@ define ["backbone", "marionette", "nunjucks", "text!templates/friend.html"], (Ba
 
     hideDetails:->
       @$el.find('.details').hide()
-      @$el.find('.friend').height(48)
+      @$el.find('.friend').height(91)
