@@ -1,9 +1,9 @@
 .friend {
   border: 1px solid $mygray;
   padding: 15px;
-  background: honeydew;
+  background: $cloudy;
   p.highlight {
-    background-color: $bright_blue;
+    background-color: $dark_head;
     color: $cloudy;
     padding-left: 4px;
   }
@@ -11,5 +11,15 @@
   margin-bottom: 5px;
   .details {
     display: none;
+  }
+}
+
+.group {
+  padding: 20px;
+  background-color: $cloudy;
+  border: 1px solid $mygray;
+  margin-bottom: 30px;
+  p {
+    font-size: 1.3em;
   }
 }
