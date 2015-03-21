@@ -28,8 +28,9 @@ class User < ActiveRecord::Base
   end
 
   def refresh_friends
-    friends = twitter_client.friends({count: 200})
-    friends.each do |friend|
+    self.friends.delete_all
+    tw_friends = twitter_client.friends({count: 200})
+    tw_friends.each do |friend|
       self.friends.create!(name: friend.name,
                            screen_name: friend.screen_name,
                            url: friend.uri.to_s,
@@ -45,6 +46,7 @@ class User < ActiveRecord::Base
     puts e.class
     puts e.message
     puts e.inspect
+    raise e
   end
 
 end

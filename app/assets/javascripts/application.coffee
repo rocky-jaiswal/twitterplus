@@ -22,6 +22,7 @@ require.config
     backbone: "/libs/bower_components/backbone/backbone"
     'backbone.babysitter': '/libs/bower_components/backbone.babysitter/backbone.babysitter'
     'backbone.radio': '/libs/bower_components/backbone.radio/build/backbone.radio'
+    'backbone.syphon': '/libs/bower_components/backbone.syphon/lib/backbone.syphon'
     'radio.shim': '/libs/radio.shim'
     'marionette': "/libs/bower_components/marionette/lib/backbone.marionette"
     text: "/libs/bower_components/requirejs-text/text"

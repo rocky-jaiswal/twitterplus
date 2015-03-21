@@ -5,7 +5,11 @@ Rails.application.routes.draw do
   root to: 'pages#login'
   get 'pages/app', as: 'home'
 
-  resources :friends, only: [:index]
+  resources :friends, only: [:index] do
+    collection do
+      put 'update_all'
+    end
+  end
   resources :groups
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

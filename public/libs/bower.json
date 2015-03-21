@@ -4,6 +4,7 @@
   "dependencies": {
     "marionette": "2.4.1",
     "backbone.radio": "0.9.0",
+    "backbone.syphon": "0.5.1",
     "requirejs-text": "2.0.14"
   },
   "devDependencies": {}
