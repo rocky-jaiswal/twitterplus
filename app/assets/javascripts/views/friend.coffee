@@ -1,4 +1,4 @@
-define ["backbone", "marionette", "nunjucks", "text!templates/friend.html"], (Backbone, Marionette, nunjucks, friendTemplate) ->
+define ["backbone", "marionette", "backbone.radio", "nunjucks", "text!templates/friend.html"], (Backbone, Marionette, Radio, nunjucks, friendTemplate) ->
   'use strict'
 
   class FriendView extends Backbone.Marionette.ItemView
@@ -6,14 +6,18 @@ define ["backbone", "marionette", "nunjucks", "text!templates/friend.html"], (Ba
     tagName: 'div'
 
     events:
-      'mouseover': 'showDetails'
+      'click .user-info': 'showDetails'
+      'click .assign-user': 'assignUser'
       'mouseout': 'hideDetails'
 
     initialize:->
       nunjucks.configure({ autoescape: true })
+      @assChannel = Radio.channel('assignment')
 
     template:=>
       nunjucks.renderString(friendTemplate, @model.attributes)
+
+    onRender:=>
 
     showDetails:->
       @$el.find('.friend').height(318)
@@ -22,3 +26,7 @@ define ["backbone", "marionette", "nunjucks", "text!templates/friend.html"], (Ba
     hideDetails:->
       @$el.find('.details').hide()
       @$el.find('.friend').height(91)
+
+    assignUser:->
+      @assChannel.trigger 'user:assignmentRequest', @model.attributes
+

@@ -16,4 +16,4 @@ define ["backbone", "marionette", "nunjucks", "views/friend", "collections/group
       nunjucks.renderString(friendsTemplate)
 
     groupsFetched:()=>
-      console.log @groups
+      #console.log @groups

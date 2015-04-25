@@ -44,10 +44,10 @@ class User < ActiveRecord::Base
     end
   rescue => e
     #TODO Handle the rate limit exception
-    puts e.class
-    puts e.message
-    puts e.inspect
-    raise e
+    Rails.logger.error e.class
+    Rails.logger.error e.message
+    Rails.logger.error e.inspect
+    Rails.logger.error e
   end
 
 end
