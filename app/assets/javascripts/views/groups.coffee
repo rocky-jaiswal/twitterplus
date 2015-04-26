@@ -19,5 +19,5 @@ define ["backbone", "marionette", "backbone.syphon", "nunjucks", "views/group","
     addGroup:(e)=>
       e.preventDefault()
       group = Syphon.serialize(@)
-      @collection.create group
-      $("#new-group-name").val("")
+      @collection.create(group, {wait: true})
+      $("#new-group-name").val('')

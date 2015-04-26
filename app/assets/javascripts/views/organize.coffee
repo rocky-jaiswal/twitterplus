@@ -17,9 +17,9 @@ define ["backbone", "marionette", "nunjucks", "views/groups", "views/friends", "
 
     onBeforeShow:=>
       friends = new Friends()
-      friends.fetch({reset: true})
+      friends.fetch()
       @getRegion('friends').show(new FriendsView(collection: friends))
 
       groups = new Groups()
-      groups.fetch({reset: true})
+      groups.fetch()
       @getRegion('groups').show(new GroupsView(collection: groups))

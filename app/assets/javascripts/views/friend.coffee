@@ -6,8 +6,8 @@ define ["backbone", "marionette", "backbone.radio", "nunjucks", "text!templates/
     tagName: 'div'
 
     events:
-      'click .user-info': 'showDetails'
-      'click .assign-user': 'assignUser'
+      'click .friend-info': 'showDetails'
+      'click .assign-friend': 'assignFriend'
       'mouseout': 'hideDetails'
 
     initialize:->
@@ -27,6 +27,6 @@ define ["backbone", "marionette", "backbone.radio", "nunjucks", "text!templates/
       @$el.find('.details').hide()
       @$el.find('.friend').height(91)
 
-    assignUser:->
-      @assChannel.trigger 'user:assignmentRequest', @model.attributes
+    assignFriend:->
+      @assChannel.trigger 'friend:assignmentRequest', @model.attributes
 

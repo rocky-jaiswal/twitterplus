@@ -6,21 +6,38 @@ define ["backbone", "marionette", "backbone.radio", "nunjucks", "text!templates/
     tagName: 'div'
 
     events:
-      'click .select-group': 'addUserToGroup'
+      'click .select-group': 'addFriendToGroup'
+      'click .delete-group': 'deleteGroup'
 
     initialize:->
       nunjucks.configure({ autoescape: true })
       @assChannel = Radio.channel('assignment')
-      @assChannel.on('user:assignmentRequest', @allowSelection)
+      @assChannel.on('friend:assignmentRequest', @allowSelection)
+      @assChannel.on('friend:assignmentSuccessful', @disableSelection)
 
     template:=>
       nunjucks.renderString(groupTemplate, @model.attributes)
 
-    onRender:=>
-
-    allowSelection:(user)=>
+    allowSelection:(friend)=>
+      @selectedFriend = friend
       @$el.find('.select-group').removeClass('hidden')
-      @selectedUser = user
 
-   adduserToGroup:=>
-     #associate user to group
+    disableSelection:=>
+      @$el.find('.select-group').addClass('hidden')
+
+    addFriendToGroup:=>
+      $.ajax
+        url: "/groups/#{@model.id}/add_friend"
+        method: "PUT"
+        data: {friend_id: @selectedFriend.id}
+        success: @friendAdded
+        error: @error
+
+    friendAdded:()=>
+      @assChannel.trigger('friend:assignmentSuccessful')
+
+    error:=>
+      console.log "TODO"
+
+    deleteGroup:=>
+      @model.destroy()

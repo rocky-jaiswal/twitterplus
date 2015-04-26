@@ -50,4 +50,8 @@ class User < ActiveRecord::Base
     Rails.logger.error e
   end
 
+  def unassigned_friends
+    self.friends.unassigned
+  end
+
 end

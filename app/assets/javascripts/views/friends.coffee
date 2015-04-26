@@ -1,4 +1,4 @@
-define ["backbone", "marionette", "nunjucks", "views/friend", "collections/groups", "text!templates/friends.html"], (Backbone, Marionette, nunjucks, FriendView, Groups, friendsTemplate) ->
+define ["backbone", "marionette", "backbone.radio", "nunjucks", "views/friend", "collections/groups", "text!templates/friends.html"], (Backbone, Marionette, Radio, nunjucks, FriendView, Groups, friendsTemplate) ->
   'use strict'
 
   class FriendsView extends Backbone.Marionette.CompositeView
@@ -8,12 +8,13 @@ define ["backbone", "marionette", "nunjucks", "views/friend", "collections/group
     childViewContainer: '.friends'
 
     initialize:->
-      @groups = new Groups()
-      @groups.fetch({reset: true, success: @groupsFetched})
+      #console.log "friends view initializd.."
       nunjucks.configure({ autoescape: true })
+      @assChannel = Radio.channel('assignment')
+      @assChannel.on('friend:assignmentSuccessful', @refreshFriends)
 
     template:=>
       nunjucks.renderString(friendsTemplate)
 
-    groupsFetched:()=>
-      #console.log @groups
+    refreshFriends:=>
+      @collection.fetch()

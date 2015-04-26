@@ -5,8 +5,22 @@ class GroupsController < ApplicationController
   end
 
   def create
-    current_user.groups.create!(group_params)
-    render nothing: true, status: 201 and return
+    group = current_user.groups.create!(group_params)
+    render json: group, status: 201 and return
+  end
+
+  def add_friend
+    group = Group.find(params['id'])
+    friend = Friend.find(params['friend_id'])
+    result = group.friends.push(friend)
+    render json: {}, status: 200 and return if result
+    render json: {}, status: 500
+  end
+
+  def destroy
+    group = Group.find(params['id'])
+    group.destroy!
+    render json: {}, status: 200
   end
 
   private

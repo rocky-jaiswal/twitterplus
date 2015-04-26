@@ -25,6 +25,12 @@
   p {
     font-size: 1.3em;
   }
+  position: relative;
+  .delete-group {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+  }
 }
 
 .hidden {
