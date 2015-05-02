@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
 
   has_many :friends, dependent: :destroy
   has_many :groups,  dependent: :destroy
+  has_many :tweets,  dependent: :destroy
 
   def enrich_oauth_info(auth)
     self.provider      = auth["provider"]
@@ -47,7 +48,29 @@ class User < ActiveRecord::Base
     Rails.logger.error e.class
     Rails.logger.error e.message
     Rails.logger.error e.inspect
-    Rails.logger.error e
+    Rails.logger.error e.backtrace.join("\n")
+    raise e
+  end
+
+  def fetch_tweets
+    options = { count: 200, trim_user: true, include_rts: true }
+    options.merge(since_id: last_fetched_tweet_id) if last_fetched_tweet_id
+    tweets = twitter_client.home_timeline(options)
+    save_tweets tweets
+  end
+
+  def save_tweets(tweets)
+    tweets.each do |tweet|
+      self.tweets.create!(id: tweet.id, full_text: tweet.full_text, friend_twitter_id: tweet.user.id)
+    end
+    self.update!(last_fetched_tweet_id: tweets.first.id)
+  rescue => e
+    #TODO Handle the rate limit exception
+    Rails.logger.error e.class
+    Rails.logger.error e.message
+    Rails.logger.error e.inspect
+    Rails.logger.error e.backtrace.join("\n")
+    raise e
   end
 
   def unassigned_friends
