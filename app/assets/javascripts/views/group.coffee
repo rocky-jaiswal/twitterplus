@@ -8,32 +8,32 @@ define ["backbone", "marionette", "backbone.radio", "nunjucks", "text!templates/
     events:
       'click .select-group': 'addFriendToGroup'
       'click .delete-group': 'deleteGroup'
+      'drop': 'handleDrop'
+      'dragover': 'allowDrop'
 
     initialize:->
       nunjucks.configure({ autoescape: true })
       @assChannel = Radio.channel('assignment')
-      @assChannel.on('friend:assignmentRequest', @allowSelection)
-      @assChannel.on('friend:assignmentSuccessful', @disableSelection)
+      @assChannel.on('friend:assignmentRequest', @friendSelected)
+      #@assChannel.on('friend:assignmentSuccessful', @disableSelection)
 
     template:=>
       nunjucks.renderString(groupTemplate, @model.attributes)
 
-    allowSelection:(friend)=>
+    friendSelected:(friend)=>
+      @$el.find('.group').addClass('highlighted')
       @selectedFriend = friend
-      @$el.find('.select-group').removeClass('hidden')
-
-    disableSelection:=>
-      @$el.find('.select-group').addClass('hidden')
 
     addFriendToGroup:=>
       $.ajax
-        url: "/groups/#{@model.id}/add_friend"
-        method: "PUT"
-        data: {friend_id: @selectedFriend.id}
+        url: "/association"
+        method: "POST"
+        data: {friend_id: @selectedFriend.id, group_id: @model.id}
         success: @friendAdded
         error: @error
 
     friendAdded:()=>
+      #TODO: nonbody is listening to this
       @assChannel.trigger('friend:assignmentSuccessful')
 
     error:=>
@@ -41,3 +41,11 @@ define ["backbone", "marionette", "backbone.radio", "nunjucks", "text!templates/
 
     deleteGroup:=>
       @model.destroy()
+
+    allowDrop:(e)=>
+      e.preventDefault()
+
+    handleDrop:(e)=>
+      #TODO: remove hack below
+      $('.group').removeClass('highlighted')
+      @addFriendToGroup()

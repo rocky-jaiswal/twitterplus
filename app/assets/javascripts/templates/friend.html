@@ -1,4 +1,4 @@
-<div class="friend col-md-12" id="friend-{{ id }}">
+<div class="friend col-md-12" id="friend-{{ id }}" draggable="true">
   <div class="highlight">
     <span>{{ screen_name }}</span>
   </div>
@@ -12,8 +12,7 @@
       <td><button class="button button-rounded button-flat-primary button-tiny friend-info"><i class="fa fa-info"></i> More Info</button></td>
     </tr>
     <tr>
-      <td>{{ name }}</td>
-      <td><button class="button button-rounded button-flat-action button-tiny assign-friend"><i class="fa fa-plug"></i> Assign </button></td>
+      <td colspan="2">{{ name }}</td>
     </tr>
   </table>
   <table class="details">

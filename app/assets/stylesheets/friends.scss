@@ -36,3 +36,7 @@
 .hidden {
   display: none;
 }
+
+.highlighted {
+  border: 3px dashed $bright_blue;
+}

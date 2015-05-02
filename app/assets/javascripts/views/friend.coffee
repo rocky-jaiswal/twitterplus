@@ -6,27 +6,30 @@ define ["backbone", "marionette", "backbone.radio", "nunjucks", "text!templates/
     tagName: 'div'
 
     events:
-      'click .friend-info': 'showDetails'
-      'click .assign-friend': 'assignFriend'
-      'mouseout': 'hideDetails'
+      'click .friend-info': 'showHideDetails'
+      'dragstart': 'handleDrag'
 
     initialize:->
       nunjucks.configure({ autoescape: true })
       @assChannel = Radio.channel('assignment')
+      @detailsHidden = true
 
     template:=>
       nunjucks.renderString(friendTemplate, @model.attributes)
 
     onRender:=>
 
-    showDetails:->
-      @$el.find('.friend').height(318)
-      @$el.find('.details').show()
+    showHideDetails:->
+      if @detailsHidden
+        @$el.find('.friend').height(318)
+        @$el.find('.details').show()
+        @detailsHidden = false
+      else
+        @$el.find('.details').hide()
+        @$el.find('.friend').height(91)
+        @detailsHidden = true
 
-    hideDetails:->
-      @$el.find('.details').hide()
-      @$el.find('.friend').height(91)
-
-    assignFriend:->
+    handleDrag:(e)=>
+      #jQuery event does not have dataTransfer :(
       @assChannel.trigger 'friend:assignmentRequest', @model.attributes
 
