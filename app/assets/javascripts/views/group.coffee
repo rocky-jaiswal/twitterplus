@@ -15,7 +15,6 @@ define ["backbone", "marionette", "backbone.radio", "nunjucks", "text!templates/
       nunjucks.configure({ autoescape: true })
       @assChannel = Radio.channel('assignment')
       @assChannel.on('friend:assignmentRequest', @friendSelected)
-      #@assChannel.on('friend:assignmentSuccessful', @disableSelection)
 
     template:=>
       nunjucks.renderString(groupTemplate, @model.attributes)
@@ -31,10 +30,6 @@ define ["backbone", "marionette", "backbone.radio", "nunjucks", "text!templates/
         data: {friend_id: @selectedFriend.id, group_id: @model.id}
         success: @friendAdded
         error: @error
-
-    friendAdded:()=>
-      #TODO: nonbody is listening to this
-      @assChannel.trigger('friend:assignmentSuccessful')
 
     error:=>
       console.log "TODO"
