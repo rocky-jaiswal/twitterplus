@@ -29,52 +29,79 @@ class User < ActiveRecord::Base
   end
 
   def refresh_friends!
-    self.friends.delete_all
-    tw_friends = twitter_client.friends({count: 200})
-    tw_friends.each do |friend|
-      self.friends.create!(name: friend.name,
-                           screen_name: friend.screen_name,
-                           twitter_id: friend.id,
-                           url: friend.uri.to_s,
-                           website: friend.website.to_s,
-                           profile_image_url: friend.profile_image_url.to_s,
-                           description: friend.description,
-                           followers_count: friend.followers_count,
-                           friends_count: friend.friends_count,
-                           following: friend.following?)
+    with_error_handling do
+      tw_friends = twitter_client.friends({count: 200})
+      tw_friends.each do |friend|
+        self.friends.find_or_create_by!(screen_name: friend.screen_name) do |f|
+          f.name =               friend.name.to_s
+          f.screen_name =        friend.screen_name
+          f.twitter_id =         friend.id
+          f.url =                friend.uri.to_s
+          f.website =            friend.website.to_s
+          f.profile_image_url =  friend.profile_image_url.to_s
+          f.description =        friend.description
+          f.followers_count =    friend.followers_count
+          f.friends_count =      friend.friends_count
+          f.following =          friend.following?
+        end
+      end
     end
-  rescue => e
-    #TODO Handle the rate limit exception
-    Rails.logger.error e.class
-    Rails.logger.error e.message
-    Rails.logger.error e.inspect
-    Rails.logger.error e.backtrace.join("\n")
-    raise e
   end
 
-  def fetch_tweets
+  def refresh_tweets!
     options = { count: 200, trim_user: true, include_rts: true }
-    options.merge(since_id: last_fetched_tweet_id) if last_fetched_tweet_id
+    options.merge(since_id: last_fetched_tweet_id) if self.last_fetched_tweet_id
     tweets = twitter_client.home_timeline(options)
-    save_tweets tweets
+    save_tweets! tweets
   end
 
-  def save_tweets(tweets)
-    tweets.each do |tweet|
-      self.tweets.create!(id: tweet.id, full_text: tweet.full_text, friend_twitter_id: tweet.user.id)
+  def save_tweets!(tweets)
+    with_error_handling do
+      tweets.each do |tweet|
+        self.tweets.find_or_create_by!(id: tweet.id) do |t|
+          t.full_text         = tweet.full_text
+          t.friend_twitter_id = tweet.user.id
+        end
+      end
+      update_last_fetched_tweet_id!
     end
-    self.update!(last_fetched_tweet_id: tweets.first.id)
-  rescue => e
-    #TODO Handle the rate limit exception
-    Rails.logger.error e.class
-    Rails.logger.error e.message
-    Rails.logger.error e.inspect
-    Rails.logger.error e.backtrace.join("\n")
-    raise e
+  end
+
+  def update_last_fetched_tweet_id!
+    last_fetched_tweet_id = self.tweets.sort_by{|t| t.id}.last
+    self.update!(last_fetched_tweet_id: last_fetched_tweet_id)
   end
 
   def unassigned_friends
     self.friends.unassigned
+  end
+
+  def organized_tweets
+    refresh_tweets if self.tweets.blank?
+    self.tweets.order(id: :desc).each_with_object({}) do |tweet, organized_tweets|
+      tweeted_by = tweet.tweeted_by
+      organized_tweets[tweeted_by.group.name] = [] if organized_tweets[tweeted_by.group.name].nil?
+      organized_tweets[tweeted_by.group.name] << tweet.as_json
+    end
+  end
+
+  def organized_friends
+    self.groups.each_with_object({}) do |group, hash|
+      hash[group.name] = group.friends.map(&:as_json)
+    end
+  end
+
+  private
+
+  def with_error_handling(&block)
+    block.call
+  rescue => e
+    #TODO Handle the rate limit exception
+    Rails.logger.error e.class
+    Rails.logger.error e.message
+    Rails.logger.error e.inspect
+    Rails.logger.error e.backtrace.join("\n")
+    raise e
   end
 
 end

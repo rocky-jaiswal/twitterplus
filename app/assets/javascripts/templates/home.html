@@ -1,1 +1,26 @@
-<h2>Home</h2>
+<div class="row">
+  <div class="col-lg-4">
+    <h2>Home</h2>
+  </div>
+  <div class="col-lg-4 col-lg-offset-4">
+    <button id="refresh-tweets" class="button button-3d-action pull-right refresh"><i class="fa fa-refresh"></i> Refresh Tweets</button>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-12">
+    <div class="timeline-container">
+      {% for key in keys %}
+      <div class="timeline">
+        <h3>{{ key }}</h3>
+        {% for tweet in data[key] %}
+        <span class="tweet">
+          <span class="tweeted_by">{{ tweet.tweeted_by.screen_name }}</span>
+          {{ tweet.full_text }}
+        </span>
+        {% endfor %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>

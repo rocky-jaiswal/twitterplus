@@ -1,0 +1,30 @@
+.timeline-container {
+  display: flex;
+  #flex: 1 1 auto;
+  #width: 100%;
+}
+
+.timeline-container > .timeline {
+  display: flex;
+  flex-flow: column nowrap;
+  flex: 1 1 30%;
+  max-height: 100%;
+  
+  margin-right: 5px;
+  padding: 10px;
+  border: 1px solid $dark_cloudy;
+  background-color: $cloudy;
+}
+
+.timeline-container > .timeline .tweet {
+  margin: 5px 0px;
+  padding: 10px;
+  background-color: $mygray;
+  .tweeted_by {
+    background-color: $flat_green;
+  }
+}
+
+.refresh {
+  margin-top: 12px;
+}

@@ -42,13 +42,15 @@ ActiveRecord::Schema.define(version: 20150502174632) do
   end
 
   create_table "tweets", id: false, force: :cascade do |t|
-    t.integer  "id",                limit: 8
-    t.text     "full_text"
-    t.integer  "friend_twitter_id", limit: 8
+    t.integer  "id",                limit: 8, null: false
+    t.text     "full_text",                   null: false
+    t.integer  "friend_twitter_id", limit: 8, null: false
     t.integer  "user_id"
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
   end
+
+  add_index "tweets", ["id"], name: "index_tweets_on_id", unique: true, using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                            default: "", null: false

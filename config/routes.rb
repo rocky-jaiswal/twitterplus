@@ -13,7 +13,11 @@ Rails.application.routes.draw do
   end
 
   resources :groups
-
-  resource :association
+  resource  :association
+  resource  :timeline, only: [:show] do
+    member do
+      put 'refresh'
+    end
+  end
 
 end
