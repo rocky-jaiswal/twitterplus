@@ -41,6 +41,8 @@ define ["backbone", "marionette", "backbone.radio", "nunjucks", "text!templates/
       e.preventDefault()
 
     handleDrop:(e)=>
-      #TODO: remove hack below
       $('.group').removeClass('highlighted')
       @addFriendToGroup()
+
+    friendAdded:()=>
+      @assChannel.trigger('friend:assignmentSuccessful')

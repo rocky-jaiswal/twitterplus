@@ -17,8 +17,6 @@ define ["backbone", "marionette", "backbone.radio", "nunjucks", "text!templates/
     template:=>
       nunjucks.renderString(friendTemplate, @model.attributes)
 
-    onRender:=>
-
     showHideDetails:->
       if @detailsHidden
         @$el.find('.friend').height(318)

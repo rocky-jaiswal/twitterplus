@@ -18,8 +18,10 @@ define ["backbone", "marionette", "nunjucks", "views/groups", "views/friends", "
     onBeforeShow:=>
       friends = new Friends()
       friends.fetch()
-      @getRegion('friends').show(new FriendsView(collection: friends))
+      @friendsView ||= new FriendsView(collection: friends)
+      @getRegion('friends').show(@friendsView)
 
       groups = new Groups()
       groups.fetch()
-      @getRegion('groups').show(new GroupsView(collection: groups))
+      @groupsView ||= new GroupsView(collection: groups)
+      @getRegion('groups').show(@groupsView)

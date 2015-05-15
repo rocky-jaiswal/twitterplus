@@ -1,7 +1,7 @@
 class GroupsController < ApplicationController
 
   def index
-    render json: current_user.groups
+    render json: current_user.groups.includes(:friends)
   end
 
   def create

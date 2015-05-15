@@ -8,13 +8,12 @@ define ["backbone", "marionette", "backbone.radio", "nunjucks", "views/friend", 
     childViewContainer: '.friends'
 
     initialize:->
-      #console.log "friends view initializd.."
       nunjucks.configure({ autoescape: true })
-      @assChannel = Radio.channel('assignment')
-      @assChannel.on('friend:assignmentSuccessful', @refreshFriends)
+      assChannel = Radio.channel('assignment')
+      assChannel.on('friend:assignmentSuccessful', @refreshFriends)
 
     template:=>
       nunjucks.renderString(friendsTemplate)
 
     refreshFriends:=>
-      @collection.fetch()
+      @collection.fetch({reset: true})
