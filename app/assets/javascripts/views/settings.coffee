@@ -19,7 +19,8 @@ define ["backbone", "marionette", "backbone.syphon", "nunjucks", "text!templates
       $.ajax({url: e.currentTarget.action, type: 'put', success: @friendsRefreshed, error: @friendsRefreshFailed})
 
     friendsRefreshed:(data)=>
-      console.log data
+      #console.log data
 
     friendsRefreshedFailed:(data)=>
-      console.log data
+      #TODO: Handle failure
+      #console.log data

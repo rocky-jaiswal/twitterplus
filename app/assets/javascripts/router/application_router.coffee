@@ -21,7 +21,8 @@ define ["backbone", "marionette", "backbone.radio", "views/home", "views/organiz
       @display(settingsView)
 
     display:(view)->
+      @headerView ||= new HeaderView()
       @options.layoutView.getRegion('main').show(view)
-      @options.layoutView.getRegion('header').show(new HeaderView())
+      @options.layoutView.getRegion('header').show(@headerView)
       channel = Radio.channel('navigation')
       channel.trigger "navigation:#{view.name}"
