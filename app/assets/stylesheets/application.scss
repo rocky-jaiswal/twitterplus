@@ -39,7 +39,7 @@ input {
   }
 }
 
-@import 'pages';
-@import 'friends';
-@import 'home';
+@import '_pages';
+@import '_friends';
+@import '_home';
 @import '_override';
