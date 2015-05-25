@@ -3,6 +3,8 @@ class Group < ActiveRecord::Base
   has_many   :friends, dependent: :nullify
 
   validates :name, presence: true
+  validates :user, presence: true
+  validates :name, uniqueness: { scope: :user_id, case_sensitive: false }
 
   def as_json(options={})
     {

@@ -3,6 +3,7 @@ class Friend < ActiveRecord::Base
   belongs_to :group
 
   validates :user, presence: true
+  validates :name, presence: true
 
   scope :unassigned, -> { where(group: nil) }
 

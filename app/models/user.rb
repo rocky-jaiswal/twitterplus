@@ -1,12 +1,15 @@
 class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable,
-         :confirmable, :lockable, :timeoutable,
+         :lockable, :timeoutable,
          :omniauthable, :omniauth_providers => [:twitter]
 
   has_many :friends, dependent: :destroy
   has_many :groups,  dependent: :destroy
   has_many :tweets,  dependent: :destroy
+
+  validates :email, presence: true
+  validates :password, presence: true, length: {minimum: 6}
 
   def enrich_oauth_info(auth)
     self.provider      = auth["provider"]
